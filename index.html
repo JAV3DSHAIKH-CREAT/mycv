@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Javed Shaikh - Document Controller</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2e86c1;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 10px auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .profile-picture {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Education Section */
+        .education-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .education-item {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .education-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .education-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .education-item .date {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        /* Experience Section */
+        .experience-item {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .experience-header h3 {
+            color: var(--primary-color);
+        }
+        
+        .experience-header .date {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .responsibilities {
+            margin-top: 20px;
+        }
+        
+        .responsibilities ul {
+            list-style-type: none;
+        }
+        
+        .responsibilities li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .responsibilities li:before {
+            content: "✓";
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-category {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill-tag {
+            background: var(--light-color);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .contact-details {
+            margin-bottom: 20px;
+        }
+        
+        .contact-details p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-details i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .declaration {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Upload Button */
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        
+        .upload-btn {
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .experience-header {
+                flex-direction: column;
+            }
+            
+            .experience-header .date {
+                margin-top: 10px;
+            }
+            
+            .profile-picture {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">JAVED <span>SHAIKH</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Hi, I am</h1>
+            <h2>Mohammad Javed Shaikh</h2>
+            <p>Document Controller with 2.5+ years of experience in managing project & Administration documentation for major organizations</p>
+            <a href="#contact" class="btn">Get In Touch</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Looking forward to associate with a world class organization where respect for human efforts and values, coupled with high performance and delivery of quality services go hand in hand with conservation and preservation of our great earth.</p>
+                    <p>I am a dedicated Document Controller with extensive experience in managing complex documentation systems for major projects. My expertise includes document management, quality control, and team supervision in high-pressure environments.</p>
+                </div>
+                <div class="about-image">
+                    <img id="profile-pic" class="profile-picture" src="javed.bmp" alt="Mohammad Javed Shaikh">
+                    <div class="upload-btn-wrapper">
+                        <button class="upload-btn">Change Photo</button>
+                        <input type="file" id="photo-upload" accept="image/*" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" style="background-color: #f9f9f9;">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-container">
+                <div class="education-item">
+                    <h3>Bachelor of Commerce in Accounting</h3>
+                    <span class="date">2025</span>
+                    <p>C. & SH DESAI ARTS AND LKL DOSHI COMMERCE COLLEGE</p>
+                </div>
+                <div class="education-item">
+                    <h3>Higher Secondary</h3>
+                    <span class="date">2016</span>
+                    <p>NAV GUJRAT HIGH SCHOOL</p>
+                </div>
+                <div class="education-item">
+                    <h3>Secondary School</h3>
+                    <span class="date">2014</span>
+                    <p>MOHAMMADI HIGH SCHOOL</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3>NBTC, Saudi Arabia (KSA) - Document Controller</h3>
+                    <span class="date">NOV 2023 to Present</span>
+                </div>
+                <p><strong>Project:</strong> MARJAN INCREMENT PROGRAM</p>
+                <p><strong>Client:</strong> Technical Reunidas / Saudi Aramco</p>
+                
+                <div class="responsibilities">
+                    <h4>Responsibilities:</h4>
+                    <ul>
+                        <li>Manage documents like MOS, QC procedures, CV for Aramco approval, HSE plans, and more</li>
+                        <li>Implement document control procedures approved for the project</li>
+                        <li>Control and monitor all incoming and outgoing documents, drawings, and correspondences</li>
+                        <li>Ensure documentation complies with acceptable standards of quality and client requirements</li>
+                        <li>Perform periodic audits on documents and drawings to ensure latest revisions are on active files</li>
+                        <li>Supervise a team of Document Controllers</li>
+                        <li>Prepare weekly and monthly status reports for documents and drawings</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3>Zamil Operation and Maintenance (KSA) - Maintenance Assistant</h3>
+                    <span class="date">OCT 2022 to APR 2023</span>
+                </div>
+                <div class="responsibilities">
+                    <ul>
+                        <li>Worked as a maintenance assistant to assist the team for maintenance work with client requirements and safety protocols</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3>Tech Mahindra (India) - Customer Support</h3>
+                    <span class="date">March 2019 to June 2022</span>
+                </div>
+                <div class="responsibilities">
+                    <ul>
+                        <li>Handled customer complaints and managed large amounts of incoming phone calls</li>
+                        <li>Monitored customer satisfaction levels and collected feedback</li>
+                        <li>Identified and assessed customers' needs to achieve satisfaction</li>
+                        <li>Provided accurate, valid and complete information using right methods/tools</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" style="background-color: #f9f9f9;">
+        <div class="container">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Software Skills</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">SAP</span>
+                        <span class="skill-tag">M.S. Office</span>
+                        <span class="skill-tag">Adobe Photoshop</span>
+                        <span class="skill-tag">NITRO PDF PRO</span>
+                        <span class="skill-tag">FOX IT READER</span>
+                        <span class="skill-tag">HILTI</span>
+                        <span class="skill-tag">Tally ERP 9.0</span>
+                        <span class="skill-tag">SharePoint</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Document Control</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">File Management</span>
+                        <span class="skill-tag">Quality Control</span>
+                        <span class="skill-tag">Procedure Implementation</span>
+                        <span class="skill-tag">Document Auditing</span>
+                        <span class="skill-tag">Revision Control</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Areas of Interest</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">Administration</span>
+                        <span class="skill-tag">Document Control</span>
+                        <span class="skill-tag">QA/QC Document Control</span>
+                        <span class="skill-tag">Time Keeping</span>
+                        <span class="skill-tag">Technical Assistance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Information</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Personal Details</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-user"></i> <strong>Father's Name:</strong> Farukbhai</p>
+                        <p><i class="fas fa-birthday-cake"></i> <strong>Date of Birth:</strong> 01/07/1999</p>
+                        <p><i class="fas fa-venus-mars"></i> <strong>Gender:</strong> Male</p>
+                        <p><i class="fas fa-flag"></i> <strong>Nationality:</strong> Indian</p>
+                        <p><i class="fas fa-heart"></i> <strong>Marital Status:</strong> Single</p>
+                        <p><i class="fas fa-language"></i> <strong>Languages:</strong> English, Urdu, Hindi & Arabic</p>
+                    </div>
+                    
+                    <h3>Passport Details</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-passport"></i> <strong>Passport No:</strong> U6358431</p>
+                        <p><i class="fas fa-calendar-alt"></i> <strong>Date of Issue:</strong> 13/02/2020</p>
+                        <p><i class="fas fa-calendar-alt"></i> <strong>Date of Expiry:</strong> 12/02/2030</p>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Place of Issue:</strong> Ahmedabad</p>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>Declaration</h3>
+                    <div class="declaration">
+                        <p>All the information furnished above is true to the best of my knowledge & belief, and at the same time, I assure you the confidence of my capability to the best way possible. Experience an affirmative response for which act of yours, I shall remain ever grateful to you, Thanking in anticipation.</p>
+                        <p style="margin-top: 20px; text-align: right; font-weight: 600;">Mohammad Javed Shaikh</p>
+                    </div>
+                    
+                    <div style="margin-top: 30px; text-align: center;">
+                        <a href="mailto:shaikhmohammadjaved99@gmail.com" class="btn">Email Me Directly</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 Mohammad Javed Shaikh. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/shaikh-mohammad-javed-6b9b80279/" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'var(--primary-color)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Profile picture upload handler
+        document.getElementById('photo-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-pic').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
